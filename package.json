@@ -1,0 +1,26 @@
+{
+  "name": "syllabus",
+  "version": "1.0.0",
+  "description": "Gestion y seguimiento",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ALCI0203/Syllabus.git"
+  },
+  "author": "Alcides",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ALCI0203/Syllabus/issues"
+  },
+  "homepage": "https://github.com/ALCI0203/Syllabus#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mongod": "^2.0.0",
+    "mongoose": "^5.2.1",
+    "nodaemon": "0.0.5"
+  }
+}
