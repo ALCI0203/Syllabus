@@ -7,6 +7,18 @@ var Syllabus=mongoose.model('syllabus',{
     DESCRIPCION:{type:String},
     FECHA_ELABORACION:{type:String}
 
-},'silabo');
+},'Seguimiento_Silabo');
 
 module.exports={Syllabus};
+
+/*const mongoose = require('mongoose');  
+var Syllabus = new mongoose.Schema({  
+    CODIGO_SILABO:String,
+    CODIGO_ASIGNATURA:String,
+    CODIGO_PERIODO:String,
+    DESCRIPCION:String,
+    FECHA_ELABORACION:String
+});
+mongoose.model('Seguimiento_Syllabus', Syllabus);
+
+module.exports = mongoose.model('syllabus');*/
