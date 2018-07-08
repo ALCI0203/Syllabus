@@ -14,7 +14,7 @@ router.get('/:COD_TEMA', function(req,res){
     var busqueda_tema={COD_TEMA:req.params.COD_TEMA};
     Tema.find(busqueda_tema,function(err,doc){
         if (err) return res.status(500).send("Hay un problema al encontrar el tema");
-        if (doc==null) return res.status(404).send("Syllabus no encontrado") 
+        if (doc==null) return res.status(404).send("Tema no encontrado") 
         else{
         res.status(200).send(doc); console.log(busqueda_tema);
         }
@@ -53,7 +53,7 @@ router.put('/Nuevo/',function(req,res){
 router.delete('/:COD_TEMA', function (req, res) {
     var eliminar_tema={COD_TEMA:req.params.COD_TEMA};
     Tema.deleteOne(eliminar_tema, function (err, tema) {
-    if (err) return res.status(500).send("Problema al borrar el silabo");
+    if (err) return res.status(500).send("Problema al borrar el tema");
     if (!tema) return res.status(404).send("Tema no encontrado") 
     else{
     res.status(200).send("Tema  borrado"); console.log(tema)}

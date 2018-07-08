@@ -31,52 +31,26 @@ router.get('/', (req, res) => {
     });
 });
 router.use(bodyParser.json());
-//router.use(bodyParser.urlencoded({ extended: true }));
-/*router.post('/Insertar', function (req, res) {
-    var jsonObj = req.body;
-    console.log(jsonObj);
-    (jsonObj, function(err, result) {
-            if (err) return res.status(500).send("hay problema en insertar ");
-            else {res.status(200).send(result);console.log(jsonObj)}
-        });
 
-});*/
 
 router.put('/Nuevo/',function(req,res){
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
 
-var jsonObj=req.body;
-var dbo = db.db("syllabus");
+        var jsonObj=req.body;
+        var dbo = db.db("syllabus");
 
-dbo.collection("Seguimiento_Silabo").insertOne(jsonObj, function(err, result) {
-  if (err) throw err;
-  console.log("1 document inserted");
-  console.log(jsonObj);
-  var resultado={ok: 1};
-  res.setHeader('Content-Type', 'application/xml');
-  res.send(resultado);
-  db.close();
-});
-});
-});
-/*
-router.put('/', function (req, res) {
-    var jsonObj = req.body;
-    Syllabus.create({
-        CODIGO_SILABO:req.body.CODIGO_SILABO,     
-    CODIGO_ASIGNATURA:req.body.CODIGO_ASIGNATURA,
-    CODIGO_PERIODO:req.body.CODIGO_PERIODO,
-    DESCRIPCION:req.body.DESCRIPCION,
-    FECHA_ELABORACION:req.body.FECHA_ELABORACION     
-        }, 
-        function (err, syl) {
-            if (err) return res.status(500).send("hay problema en insertar ");
-            else {res.status(200).send(syl);console.log(syl)}
+        dbo.collection("Seguimiento_Silabo").insertOne(jsonObj, function(err, result) {
+        if (err) throw err;
+        console.log("1 document inserted");
+        console.log(jsonObj);
+        var resultado={ok: 1};
+        res.setHeader('Content-Type', 'application/json');
+        res.send(resultado);
+        db.close();
         });
-        console.log();
-
-});*/
+    });
+});
 
 
 
@@ -85,7 +59,7 @@ router.put('/', function (req, res) {
 router.delete('/:id', function (req, res) {
     var eliminar_syllabus={codigo_silabo:req.params.id};
     Syllabus.deleteOne(eliminar_syllabus, function (err, syllabus) {
-    if (err) return res.status(500).send("Problema al borrar el silabo");
+    if (err) return res.status(500).send("Problema al borrar el sylabus");
     if (syllabus) return res.status(404).send("Syllabus no encontrado") 
     else{
     res.status(200).send("syllabus  borrado"); console.log(syllabus)}
