@@ -7,7 +7,7 @@ var Syllabus=mongoose.model('syllabus',{
     DESCRIPCION:{type:String},
     FECHA_ELABORACION:{type:String}
 
-},'Seguimiento_Silabo');
+},'Silabo');
 
 module.exports={Syllabus};
 

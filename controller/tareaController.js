@@ -60,6 +60,18 @@ router.get('/', (req, res) => {
         res.status(200).send(docs);
     });
 });
+router.post('/:COD_TAREA', function (req, res) {
+    var buscar_t={COD_TAREA:req.params.COD_TAREA};
+    console.log(buscar_t);
+            //
+    Tarea.findOneAndUpdate(buscar_t, req.body, {new: true}, function (err, doc) {
+        if (err) {console.log(doc);
+        return res.status(500).send("There was a problem updating the seguimiento");}
+        else res.status(200).send(doc);
+       
+    });
+
+});
 module.exports=router;
 
 
