@@ -10,7 +10,7 @@ var Syllabus=mongoose.model('syllabus',{
 },'Silabo');
 
 module.exports={Syllabus};
-
+    
 /*const mongoose = require('mongoose');  
 var Syllabus = new mongoose.Schema({  
     CODIGO_SILABO:String,
