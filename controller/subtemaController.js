@@ -10,22 +10,20 @@ var dbo;
 var MongoClient = mongo.MongoClient;
 var url= "mongodb://localhost:27017/";
 ///Obtener tema por codigo
-router.get('/:COD_SUBTEMA', function(req,res){
-    var busqueda_subtema={COD_SUBTEMA:req.params.COD_SUBTEMA};
-    Subtema.find(busqueda_subtema,function(err,doc){
+router.get('/:id', function(req,res){
+    Subtema.findById(req.params.id,function(err,doc){
         if (err) return res.status(500).send("Hay un problema al encontrar el subtema");
-        if (doc==null) return res.status(404).send("Subtema no encontrado") 
+        if (!doc) return res.status(404).send("Subtema no encontrado") 
         else{
-        res.status(200).send(doc); console.log(busqueda_subtema);
+        res.status(200).send(doc); 
         }
     });
 });
 
-router.post('/:COD_SUBTEMA', function (req, res) {
-    var buscar_t={COD_SUBTEMA:req.params.COD_SUBTEMA};
-    console.log(buscar_t);
-            //
-    Subtema.findOneAndUpdate(buscar_t, req.body, {new: true}, function (err, doc) {
+router.post('/:id', function (req, res) {
+    //var buscar_t={COD_SUBTEMA:req.params.COD_SUBTEMA};
+    
+    Subtema.findByIdAndUpdate(req.params.id, req.body, {new: true}, function (err, doc) {
         if (err) {console.log(doc);
         return res.status(500).send("There was a problem updating the seguimiento");}
         else res.status(200).send(doc);
@@ -63,13 +61,13 @@ router.put('/Nuevo/',function(req,res){
 });
 
 //borrar un subtema
-router.delete('/:COD_SUBTEMA', function (req, res) {
-    var eliminar_subtema={COD_SUBTEMA:req.params.COD_SUBTEMA};
-    Subtema.deleteOne(eliminar_subtema, function (err, subtema) {
+router.delete('/:id', function (req, res) {
+
+    Subtema.findByIdAndRemove(req.params.id, function (err, subtema) {
     if (err) return res.status(500).send("Problema al borrar el subtema");
     if (!subtema) return res.status(404).send("SubTema no encontrado") 
     else{
-    res.status(200).send("SubTema  borrado"); console.log(subtema)}
+    res.status(200).send("SubTema  borrado"); }
     });
 
 });

@@ -10,13 +10,13 @@ var dbo;
 var MongoClient = mongo.MongoClient;
 var url= "mongodb://localhost:27017/";
 ///Obtener tema por codigo
-router.get('/:COD_ESTUDIANTE', function(req,res){
-    var busqueda_est={COD_ESTUDIANTE:req.params.COD_ESTUDIANTE};
-    Seguimiento.find(busqueda_est,function(err,doc){
+router.get('/:id', function(req,res){
+    
+    Seguimiento.findById(req.params.id,function(err,doc){
         if (err) return res.status(500).send("Hay un problema al encontrar el seguimiento");
         if (doc==null) return res.status(404).send("Seguimiento no encontrado") 
         else{
-        res.status(200).send(doc); console.log(busqueda_est);
+        res.status(200).send(doc); console.log(doc);
         }
     });
 });
@@ -50,15 +50,11 @@ router.get('/', (req, res) => {
         res.status(200).send(docs);
     });
 });
-router.post('/:COD_SUBTEMA', function (req, res) {
-    var buscar_seg={COD_SUBTEMA:req.params.COD_SUBTEMA};
-    console.log(buscar_seg);
-            //
-    Seguimiento.findOneAndUpdate(buscar_seg, req.body, {new: true}, function (err, user) {
+router.post('/:id', function (req, res) {
+  
+    Seguimiento.findByIdAndUpdate(req.params.id, req.body, {new: true}, function (err, user) {
         if (err) {console.log(user);
-        return res.status(500).send("There was a problem updating the seguimiento");}
-            
-        
+        return res.status(500).send("There was a problem updating the seguimiento");}                   
         else res.status(200).send(user);
        
     });

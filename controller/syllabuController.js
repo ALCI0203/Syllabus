@@ -11,17 +11,25 @@ var url= "mongodb://localhost:27017/";
 
 var busqueda_syllabus;
 /////Obtener Syllabus por codigo
-router.get('/:codigo_silabo', function(req,res){
-     busqueda_syllabus={codigo_silabo:req.params.codigo_silabo};
-    Syllabus.find(busqueda_syllabus,function(err,doc){
+router.get('/:id', function(req,res){
+    Syllabus.findById(req.params.id,function(err,doc){
         if (err) return res.status(500).send("Hay un problema al encontrar syllabus");
-        if (doc==null) return res.status(404).send("Syllabus no encontrado") 
+        if (!doc) return res.status(404).send("Syllabus no encontrado") 
         else{
         res.status(200).send(doc); console.log(doc)
         }
     });
 });
+router.post('/:id', function (req, res) {
+  
+    Syllabus.findByIdAndUpdate(req.params.id, req.body, {new: true}, function (err, doc) {
+        if (err) {console.log(doc);
+        return res.status(500).send("There was a problem updating the seguimiento");}
+        else res.status(200).send(doc);
+       
+    });
 
+});
 ////obtener todos los syllabus
 router.get('/', (req, res) => { 
     Syllabus.find((err, docs) => {
@@ -57,26 +65,15 @@ router.put('/Nuevo/',function(req,res){
 
 
 router.delete('/:id', function (req, res) {
-    var eliminar_syllabus={codigo_silabo:req.params.id};
-    Syllabus.deleteOne(eliminar_syllabus, function (err, syllabus) {
+
+    Syllabus.findByIdAndRemove(req.params.id, function (err, syllabus) {
     if (err) return res.status(500).send("Problema al borrar el sylabus");
-    if (syllabus) return res.status(404).send("Syllabus no encontrado") 
+    if (!syllabus) return res.status(404).send("Syllabus no encontrado") 
     else{
     res.status(200).send("syllabus  borrado"); console.log(syllabus)}
     });
 
 });
 
-router.post('/:id', function (req, res) {
-    var buscar_t={codigo_silabo:req.params.id};
-    //console.log(buscar_t);
-            //
-    Syllabus.findOneAndUpdate(buscar_t, req.body, {new: true}, function (err, doc) {
-        if (err) {console.log(doc);
-        return res.status(500).send("There was a problem updating the seguimiento");}
-        else res.status(200).send(doc);
-       
-    });
 
-});
 module.exports = router;

@@ -10,11 +10,10 @@ var dbo;
 var MongoClient = mongo.MongoClient;
 var url= "mongodb://localhost:27017/";
 ///Obtener tema por codigo
-router.get('/:COD_SILABO', function(req,res){
-    var busqueda_tema={COD_SILABO:req.params.COD_SILABO};
-    Tema.find(busqueda_tema,function(err,doc){
+router.get('/:id', function(req,res){
+    Tema.findById(req.params.id,function(err,doc){
         if (err) return res.status(500).send("Hay un problema al encontrar el tema");
-        if (doc==null) return res.status(404).send("Tema no encontrado") 
+        if (!doc) return res.status(404).send("Tema no encontrado") 
         else{
         res.status(200).send(doc); console.log(busqueda_tema);
         }
@@ -50,21 +49,18 @@ router.put('/Nuevo/',function(req,res){
 });
 
 //borrar un tema
-router.delete('/:COD_TEMA', function (req, res) {
-    var eliminar_tema={COD_TEMA:req.params.COD_TEMA};
-    Tema.deleteOne(eliminar_tema, function (err, tema) {
+router.delete('/:id', function (req, res) {
+
+    Tema.findByIdAndRemove(req.params.id, function (err, tema) {
     if (err) return res.status(500).send("Problema al borrar el tema");
     if (!tema) return res.status(404).send("Tema no encontrado") 
     else{
-    res.status(200).send("Tema  borrado"); console.log(tema)}
+    res.status(200).send("Tema  borrado");}
     });
 
 });
-router.post('/:COD_TEMA', function (req, res) {
-    var buscar_t={COD_TEMA:req.params.COD_TEMA};
-    console.log(buscar_t);
-            //
-    Tema.findOneAndUpdate(buscar_t, req.body, {new: true}, function (err, doc) {
+router.post('/:id', function (req, res) {
+    Tema.findByIdAndUpdate(req.params.id, req.body, {new: true}, function (err, doc) {
         if (err) {console.log(doc);
         return res.status(500).send("There was a problem updating the seguimiento");}
         else res.status(200).send(doc);

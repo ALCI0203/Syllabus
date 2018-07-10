@@ -10,13 +10,13 @@ var dbo;
 var MongoClient = mongo.MongoClient;
 var url= "mongodb://localhost:27017/";
 ///Obtener tema por codigo
-router.get('/:COD_TAREA', function(req,res){
-    var busqueda_tarea={COD_TAREA:req.params.COD_TAREA};
-    Tarea.find(busqueda_tarea,function(err,doc){
+router.get('/:id', function(req,res){
+    
+    Tarea.findById(req.params.id,function(err,doc){
         if (err) return res.status(500).send("Hay un problema al encontrar la tarea");
-        if (doc==null) return res.status(404).send("Tarea no encontrado") 
+        if (!doc) return res.status(404).send("Tarea no encontrado") 
         else{
-        res.status(200).send(doc); console.log(busqueda_subtema);
+        res.status(200).send(doc); 
         }
     });
 });
@@ -42,13 +42,12 @@ router.put('/Nuevo/',function(req,res){
 });
 
 //borrar una Tarea
-router.delete('/:COD_TAREA', function (req, res) {
-    var eliminar_tarea={COD_TAREA:req.params.COD_TAREA};
-    Tarea.deleteOne(eliminar_tarea, function (err, tarea) {
+router.delete('/:id', function (req, res) {
+    Tarea.findByIdAndRemove(req.params.id, function (err, tarea) {
     if (err) return res.status(500).send("Problema al borrar la tarea");
     if (!tarea) return res.status(404).send("Tarea no encontrada") 
     else{
-    res.status(200).send("Tarea borrada"); console.log(tarea)}
+    res.status(200).send("Tarea borrada");}
     });
 
 });
@@ -60,11 +59,9 @@ router.get('/', (req, res) => {
         res.status(200).send(docs);
     });
 });
-router.post('/:COD_TAREA', function (req, res) {
-    var buscar_t={COD_TAREA:req.params.COD_TAREA};
-    console.log(buscar_t);
-            //
-    Tarea.findOneAndUpdate(buscar_t, req.body, {new: true}, function (err, doc) {
+router.post('/:id', function (req, res) {
+   
+    Tarea.findByIdAndUpdate(req.params.id, req.body, {new: true}, function (err, doc) {
         if (err) {console.log(doc);
         return res.status(500).send("There was a problem updating the seguimiento");}
         else res.status(200).send(doc);
