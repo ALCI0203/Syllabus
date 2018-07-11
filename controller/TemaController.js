@@ -10,8 +10,9 @@ var dbo;
 var MongoClient = mongo.MongoClient;
 var url= "mongodb://localhost:27017/";
 ///Obtener tema por codigo
-router.get('/:id', function(req,res){
-    Tema.findById(req.params.id,function(err,doc){
+router.get('/:COD_SILABO', function(req,res){
+    var buscar_t={COD_SILABO:req.params.COD_SILABO};
+    Tema.find(buscar_t,function(err,doc){
         if (err) return res.status(500).send("Hay un problema al encontrar el tema");
         if (!doc) return res.status(404).send("Tema no encontrado") 
         else{
@@ -30,7 +31,7 @@ router.get('/', (req, res) => {
 
 //insertar un tema
 router.use(bodyParser.json());
-router.put('/Nuevo/',function(req,res){
+router.put('/',function(req,res){
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
 

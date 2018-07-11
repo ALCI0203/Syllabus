@@ -41,7 +41,7 @@ router.get('/', (req, res) => {
 router.use(bodyParser.json());
 
 
-router.put('/Nuevo/',function(req,res){
+router.put('/',function(req,res){
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
 

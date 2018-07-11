@@ -4,7 +4,7 @@ var Syllabus=mongoose.model('syllabus',{
     CODIGO_ASIGNATURA:{type:String},
     CODIGO_PERIODO:{type:String},
     DESCRIPCION:{type:String},
-    FECHA_ELABORACION:{type:String}
+    FECHA_ELABORACION:{type:Date}
 
 },'Silabo');
 

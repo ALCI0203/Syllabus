@@ -14,7 +14,7 @@ router.get('/:id', function(req,res){
     
     Seguimiento.findById(req.params.id,function(err,doc){
         if (err) return res.status(500).send("Hay un problema al encontrar el seguimiento");
-        if (doc==null) return res.status(404).send("Seguimiento no encontrado") 
+        if (!doc) return res.status(404).send("Seguimiento no encontrado") 
         else{
         res.status(200).send(doc); console.log(doc);
         }
@@ -23,7 +23,7 @@ router.get('/:id', function(req,res){
 
 //insertar un subtema
 router.use(bodyParser.json());
-router.put('/Nuevo/',function(req,res){
+router.put('/',function(req,res){
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
 
@@ -51,7 +51,7 @@ router.get('/', (req, res) => {
     });
 });
 router.post('/:id', function (req, res) {
-  
+    //var buscar_t={COD_SUBTEMA:req.params.COD_SUBTEMA};
     Seguimiento.findByIdAndUpdate(req.params.id, req.body, {new: true}, function (err, user) {
         if (err) {console.log(user);
         return res.status(500).send("There was a problem updating the seguimiento");}                   
@@ -60,6 +60,19 @@ router.post('/:id', function (req, res) {
     });
 
 });
+
+/*router.get('/:COD_ESTUDIANTE', function(req,res){
+    var buscar_t={COD_ESTUDIANTE:req.params.COD_ESTUDIANTE}
+    Seguimiento.find(buscar_t,function(err,doc){
+        if (err) return res.status(500).send("Hay un problema al encontrar el seguimiento");
+        if (!doc) return res.status(404).send("Seguimiento no encontrado") 
+        else{
+        res.status(200).send(doc); console.log(doc);
+        }
+    });
+});*/
+
+
 
 module.exports=router;
 
