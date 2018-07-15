@@ -20,9 +20,9 @@ router.get('/:id', function(req,res){
         }
     });
 });
-router.post('/:id', function (req, res) {
+router.post('/', function (req, res) {
   
-    Syllabus.findByIdAndUpdate(req.params.id, req.body, {new: true}, function (err, doc) {
+    Syllabus.findByIdAndUpdate(req.body._id, req.body, {new: true}, function (err, doc) {
         if (err) {console.log(doc);
         return res.status(500).send("There was a problem updating the seguimiento");}
         else res.status(200).send(doc);
@@ -70,7 +70,7 @@ router.delete('/:id', function (req, res) {
     if (err) return res.status(500).send("Problema al borrar el sylabus");
     if (!syllabus) return res.status(404).send("Syllabus no encontrado") 
     else{
-    res.status(200).send("syllabus  borrado"); console.log(syllabus)}
+    res.status(200).send("syllabus  borrado");}
     });
 
 });
