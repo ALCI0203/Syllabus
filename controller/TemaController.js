@@ -21,6 +21,17 @@ router.get('/:COD_SILABO', function(req,res){
     });
 });
 
+router.post('/', function (req, res) {
+    Tema.findByIdAndUpdate(req.body._id, req.body, {new: true}, function (err, doc) {
+        if (err) {console.log(doc);
+        return res.status(500).send("There was a problem updating the seguimiento");}
+        else res.status(200).send(doc);
+       
+    });
+
+});
+
+
 router.get('/', (req, res) => { 
     Tema.find((err, docs) => {
         if (err) return res.status(500).send("Hay un problema al encontrar tema");
@@ -57,15 +68,6 @@ router.delete('/:id', function (req, res) {
     if (!tema) return res.status(404).send("Tema no encontrado") 
     else{
     res.status(200).send("Tema  borrado");}
-    });
-
-});
-router.post('/', function (req, res) {
-    Tema.findByIdAndUpdate(req.params.id, req.body, {new: true}, function (err, doc) {
-        if (err) {console.log(doc);
-        return res.status(500).send("There was a problem updating the seguimiento");}
-        else res.status(200).send(doc);
-       
     });
 
 });

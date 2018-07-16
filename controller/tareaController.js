@@ -61,7 +61,7 @@ router.get('/', (req, res) => {
 });
 router.post('/', function (req, res) {
    
-    Tarea.findByIdAndUpdate(req.params.id, req.body, {new: true}, function (err, doc) {
+    Tarea.findByIdAndUpdate(req.body._id, req.body, {new: true}, function (err, doc) {
         if (err) {console.log(doc);
         return res.status(500).send("There was a problem updating the seguimiento");}
         else res.status(200).send(doc);

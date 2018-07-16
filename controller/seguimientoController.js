@@ -52,7 +52,7 @@ router.get('/', (req, res) => {
 });
 router.post('/', function (req, res) {
     //var buscar_t={COD_SUBTEMA:req.params.COD_SUBTEMA};
-    Seguimiento.findByIdAndUpdate(req.params.id, req.body, {new: true}, function (err, user) {
+    Seguimiento.findByIdAndUpdate(req.body._id, req.body, {new: true}, function (err, user) {
         if (err) {console.log(user);
         return res.status(500).send("There was a problem updating the seguimiento");}                   
         else res.status(200).send(user);
