@@ -21,10 +21,10 @@ router.get('/:COD_TEMA', function(req,res){
     });
 });
 
-router.post('/:id', function (req, res) {
+router.post('/', function (req, res) {
     //var buscar_t={COD_SUBTEMA:req.params.COD_SUBTEMA};
     
-    Subtema.findByIdAndUpdate(req.params.id, req.body, {new: true}, function (err, doc) {
+    Subtema.findByIdAndUpdate(req.body._id, req.body, {new: true}, function (err, doc) {
         if (err) {console.log(doc);
         return res.status(500).send("There was a problem updating the seguimiento");}
         else res.status(200).send(doc);

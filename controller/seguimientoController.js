@@ -50,7 +50,7 @@ router.get('/', (req, res) => {
         res.status(200).send(docs);
     });
 });
-router.post('/:id', function (req, res) {
+router.post('/', function (req, res) {
     //var buscar_t={COD_SUBTEMA:req.params.COD_SUBTEMA};
     Seguimiento.findByIdAndUpdate(req.params.id, req.body, {new: true}, function (err, user) {
         if (err) {console.log(user);

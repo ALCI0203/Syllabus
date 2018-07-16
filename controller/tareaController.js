@@ -59,7 +59,7 @@ router.get('/', (req, res) => {
         res.status(200).send(docs);
     });
 });
-router.post('/:id', function (req, res) {
+router.post('/', function (req, res) {
    
     Tarea.findByIdAndUpdate(req.params.id, req.body, {new: true}, function (err, doc) {
         if (err) {console.log(doc);
