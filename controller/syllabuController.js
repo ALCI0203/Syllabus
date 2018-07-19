@@ -3,6 +3,7 @@ var router =express.Router();
 var ObjectId=require('mongoose').Types.ObjectId;
 var bodyParser = require('body-parser');
 var {Syllabus}=require('../models/syllabus');
+
 var mongo=require('mongodb');
 var dbo;
 
@@ -12,6 +13,7 @@ var url= "mongodb://localhost:27017/";
 var busqueda_syllabus;
 /////Obtener Syllabus por codigo
 router.get('/:id', function(req,res){
+    
     Syllabus.findById(req.params.id,function(err,doc){
         if (err) return res.status(500).send("Hay un problema al encontrar syllabus");
         if (!doc) return res.status(404).send("Syllabus no encontrado") 
@@ -21,8 +23,8 @@ router.get('/:id', function(req,res){
     });
 });
 router.post('/', function (req, res) {
-  
-    Syllabus.findByIdAndUpdate(req.body_id, req.body, {new: true}, function (err, doc) {
+  console.log(req.body._id);
+    Syllabus.findByIdAndUpdate(req.body._id, req.body, {new: true}, function (err, doc) {
         if (err) {console.log(doc);
         return res.status(500).send("There was a problem updating the seguimiento");}
         else res.status(200).send(doc);      
